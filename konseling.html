@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestari - Layanan Konseling</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'outfit': ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -50px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+        .animate-blob { animation: blob 20s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-outfit bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50">
+
+    <!-- Navigation -->
+<nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="aset/logo.png" alt="Bestari Logo" class="h-12 w-auto">
+                </div>
+                
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="index.html" class="text-gray-700 hover:text-orange-500 font-medium transition">Beranda</a></li>
+                    <li><a href="#tentang" class="text-gray-700 hover:text-orange-500 font-medium transition">Tentang</a></li>
+                    <li><a href="#konselor" class="text-gray-700 hover:text-orange-500 font-medium transition">Konselor</a></li>
+                    <li><a href="#jadwal" class="text-gray-700 hover:text-orange-500 font-medium transition">Jadwal</a></li>
+                </ul>
+                
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Buat Janji
+                </button>
+                
+                <button class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <!-- Gradient Orbs -->
+        <div class="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+        <div class="absolute top-40 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block bg-white/60 backdrop-blur-lg px-6 py-2 rounded-full text-orange-600 font-semibold mb-4 shadow-lg">
+                        💬 Konseling Profesional
+                    </span>
+                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                        Konseling untuk<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Kehidupan yang Lebih Baik</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Berbicara dengan konselor profesional kami secara privat dan rahasia. Kami hadir untuk mendengarkan, memahami, dan membantu Anda menemukan solusi terbaik.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-xl">
+                            Jadwalkan Konseling
+                        </button>
+                        <button class="bg-white text-gray-800 border-2 border-gray-300 px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition">
+                            Konsultasi Gratis
+                        </button>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-12">
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-orange-500">500+</p>
+                            <p class="text-gray-600 text-sm mt-1">Klien Puas</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-pink-500">15+</p>
+                            <p class="text-gray-600 text-sm mt-1">Konselor Ahli</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-purple-500">98%</p>
+                            <p class="text-gray-600 text-sm mt-1">Rating Positif</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-white/40 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50">
+                        <img src="aset/konsultasi.jpg" class="aspect-square bg-gradient-to-br from-orange-200 to-pink-200 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-image text-6xl text-white/50"></i>
+                        </img>
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -left-6 bg-white/80 backdrop-blur-lg rounded-2xl p-4 shadow-xl border border-white/50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">100% Privat</p>
+                                <p class="text-sm text-gray-600">& Rahasia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Counseling Section -->
+    <section id="tentang" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Tentang Layanan Kami</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Mengapa Memilih Konseling di Bestari?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Kami menyediakan ruang aman dan profesional untuk berbagi cerita, menemukan solusi, dan tumbuh bersama.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-orange-50 to-pink-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-shield text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Privasi Terjamin</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Semua sesi konseling dijamin 100% rahasia dan privat. Data Anda aman bersama kami dan tidak akan dibagikan ke pihak manapun.
+                    </p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-certificate text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Konselor Bersertifikat</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Tim konselor kami memiliki sertifikasi profesional dan pengalaman bertahun-tahun dalam membantu individu dan keluarga.
+                    </p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Jadwal Fleksibel</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pilih waktu konseling yang sesuai dengan jadwal Anda. Tersedia sesi pagi, siang, sore, dan malam hari.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counselor Profiles Section -->
+    <section id="konselor" class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Tim Profesional Kami</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Kenalan dengan Konselor Kami
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Konselor berpengalaman dan berempati yang siap membantu perjalanan Anda.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Counselor 1 -->
+<div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+    <!-- Wrapper gambar -->
+    <div class="relative h-80 w-full">
+        <img 
+            src="aset/sarah-wijaya.png" 
+            alt="Dr. Sarah Wijaya" 
+            class="w-full h-full object-cover"
+        >
+    </div>
+
+    <div class="p-6">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Dr. Sarah Wijaya, M.Psi</h3>
+        <p class="text-orange-500 font-semibold mb-3">Psikolog Klinis</p>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+            Spesialisasi: Pernikahan, Keluarga, Trauma<br>
+            Pengalaman: 12 tahun
+        </p>
+        <div class="flex items-center justify-between">
+            <div class="flex items-center text-yellow-500">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span class="ml-2 text-gray-600 text-sm">(4.9)</span>
+            </div>
+            <button class="text-orange-500 font-semibold hover:text-orange-600">
+                Lihat Profil →
+            </button>
+        </div>
+    </div>
+</div>
+
+                <!-- Counselor 2 -->
+                <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+    <!-- Wrapper gambar -->
+    <div class="relative h-80 w-full">
+        <img 
+            src="aset/fatimah-nurul.jpg" 
+            alt="Dr. Sarah Wijaya" 
+            class="w-full h-full object-cover"
+        >
+    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Fatimah Nurul, S.Psi, M.A</h3>
+                        <p class="text-purple-500 font-semibold mb-3">Konselor Keluarga</p>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Spesialisasi: Parenting, Komunikasi, Konflik<br>
+                            Pengalaman: 9 tahun
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-gray-600 text-sm">(5.0)</span>
+                            </div>
+                            <button class="text-purple-500 font-semibold hover:text-purple-600">
+                                Lihat Profil →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counselor 3 -->
+                <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+    <!-- Wrapper gambar -->
+    <div class="relative h-80 w-full">
+        <img 
+            src="aset/Dina Kartika.jpg" 
+            alt="Dr. Sarah Wijaya" 
+            class="w-full h-full object-cover"
+        >
+    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Dina Kartika, M.Psi</h3>
+                        <p class="text-blue-500 font-semibold mb-3">Psikolog Perempuan</p>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Spesialisasi: Karier, Self-esteem, Anxiety<br>
+                            Pengalaman: 8 tahun
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-gray-600 text-sm">(4.8)</span>
+                            </div>
+                            <button class="text-blue-500 font-semibold hover:text-blue-600">
+                                Lihat Profil →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Lihat Semua Konselor
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Schedule Section -->
+    <section id="jadwal" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Jadwal Tersedia</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Pilih Waktu yang Tepat untuk Anda
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Fleksibilitas adalah prioritas kami. Pilih hari dan waktu yang sesuai dengan jadwal Anda.
+                </p>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/50">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Calendar/Day Selection -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Pilih Tanggal</h3>
+                        <div class="grid grid-cols-7 gap-2 mb-6">
+                            <div class="text-center text-sm font-semibold text-gray-600">Min</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Sen</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Sel</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Rab</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Kam</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Jum</div>
+                            <div class="text-center text-sm font-semibold text-gray-600">Sab</div>
+                            
+                            <!-- Example dates -->
+                            <div class="aspect-square bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm">1</div>
+                            <div class="aspect-square bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm">2</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">3</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">4</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">5</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">6</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">7</div>
+                            <div class="aspect-square bg-gradient-to-br from-orange-400 to-pink-500 rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-lg">8</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">9</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">10</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">11</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">12</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">13</div>
+                            <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center text-gray-900 text-sm hover:border-orange-500 cursor-pointer">14</div>
+                        </div>
+
+                        <div class="bg-orange-50 rounded-2xl p-6 border-l-4 border-orange-400">
+                            <h4 class="font-bold text-gray-900 mb-2">📅 Tanggal Terpilih</h4>
+                            <p class="text-gray-700">Minggu, 8 Desember 2024</p>
+                        </div>
+                    </div>
+
+                    <!-- Time Slots -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Pilih Waktu</h3>
+                        <div class="space-y-3 max-h-96 overflow-y-auto">
+                            <button class="w-full flex items-center justify-between p-4 bg-white border-2 border-orange-500 rounded-xl hover:bg-orange-50 transition">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-orange-500"></i>
+                                    <span class="font-semibold text-gray-900">09:00 - 10:00</span>
+                                </div>
+                                <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-gray-600"></i>
+                                    <span class="font-semibold text-gray-900">10:30 - 11:30</span>
+                                </div>
+                                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-50 border-2 border-gray-200 rounded-xl cursor-not-allowed opacity-50">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-gray-400"></i>
+                                    <span class="font-semibold text-gray-500">13:00 - 14:00</span>
+                                </div>
+                                <span class="bg-gray-400 text-white px-3 py-1 rounded-full text-xs font-bold">Penuh</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-gray-600"></i>
+                                    <span class="font-semibold text-gray-900">14:30 - 15:30</span>
+                                </div>
+                                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-gray-600"></i>
+                                    <span class="font-semibold text-gray-900">16:00 - 17:00</span>
+                                </div>
+                                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition">
+                                <div class="flex items-center space-x-3">
+                                    <i class="far fa-clock text-gray-600"></i>
+                                    <span class="font-semibold text-gray-900">19:00 - 20:00</span>
+                                </div>
+                                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>
+                            </button>
+                        </div>
+
+                        <button class="w-full mt-6 bg-gradient-to-r from-orange-400 to-pink-500 text-white py-4 rounded-xl font-bold hover:scale-105 transition shadow-lg">
+                            Konfirmasi Jadwal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Counseling Flow Section -->
+    <section class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Proses Konseling</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Bagaimana Cara Kerjanya?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Proses konseling yang mudah dan nyaman dalam 4 langkah sederhana.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition text-center h-full">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
+                            1
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Isi Formulir</h3>
+                        <p class="text-gray-600">
+                            Ceritakan kebutuhan dan kondisi Anda secara singkat agar kami bisa mencocokkan konselor yang tepat.
+                        </p>
+                    </div>
+                    <!-- Arrow (desktop only) -->
+                    <div class="hidden md:flex absolute top-1/2 right-[-18px] transform -translate-y-1/2">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 shadow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition text-center h-full">
+                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Pilih Konselor & Jadwal</h3>
+                        <p class="text-gray-600">
+                            Pilih konselor yang sesuai dan tentukan jadwal konseling yang paling nyaman untuk Anda.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex absolute top-1/2 right-[-18px] transform -translate-y-1/2">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 shadow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition text-center h-full">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Mulai Sesi Konseling</h3>
+                        <p class="text-gray-600">
+                            Lakukan sesi konseling secara online atau tatap muka sesuai pilihan Anda, dalam suasana aman dan nyaman.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex absolute top-1/2 right-[-18px] transform -translate-y-1/2">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 shadow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition text-center h-full">
+                        <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
+                            4
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Tindak Lanjut & Support</h3>
+                        <p class="text-gray-600">
+                            Dapatkan rangkuman sesi, rekomendasi praktis, dan opsi sesi lanjutan jika Anda membutuhkannya.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-10 py-4 rounded-full font-semibold hover:scale-105 transition shadow-xl">
+                    Mulai Perjalanan Konseling Anda
+                </button>
+            </div>
+        </div>
+    </section>
+
+   <!-- ========== SECTION 6: FAQ ========== -->
+    <section class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                   Masih ragu? Berikut beberapa jawaban dari pertanyaan yang sering muncul. 
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                           Apakah konseling benar-benar rahasia?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                         Ya. Semua data dan pembicaraan dalam sesi konseling dijaga kerahasiaannya sesuai dengan kode etik profesional.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                            Apakah saya bisa memilih konselor perempuan saja?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Bisa. Anda bebas memilih konselor berdasarkan kebutuhan dan preferensi, termasuk jenis kelamin dan area spesialisasi.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                           Berapa durasi satu sesi konseling?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Rata-rata satu sesi berlangsung 45–60 menit, menyesuaikan jenis layanan dan kebutuhan Anda.
+                    </div>
+                </details>
+            </div>
+    </div>
+    </section>
+
+ <!-- ========== FOOTER ========== -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+            <!-- Column 1 - Brand -->
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="aset/logo1.png" alt="Bestari Logo" class="h-12 w-auto">
+                    <span class="text-2xl font-bold">Bestari</span>
+                </div>
+                <p class="text-gray-400 leading-relaxed">
+                    Menguatkan perempuan hari ini, membangun keluarga sehat di masa depan.
+                </p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2 - Programs -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Programs</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Marriage Readiness Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Financial Stability Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Household Simulation Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Premarital Learning Module</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3 - Company -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Our Team</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Partners</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4 - Resources -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Success Stories</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Events</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Bottom Footer -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 Bestari. All rights reserved.
+            </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Simple JS -->
+    <script>
+        // Toggle mobile menu
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
+            
