@@ -1,0 +1,572 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestari - Tes Kestabilan Finansial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- React + Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'outfit': ['Outfit', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF untuk download PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    @keyframes blob {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(20px, -50px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.9); }
+      75% { transform: translate(50px, 50px) scale(1.05); }
+    }
+    .animate-blob { animation: blob 20s infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+  </style>
+</head>
+<body class="font-outfit">
+  <div id="root"></div>
+
+  <body class="font-outfit">
+  <div id="root"></div>
+
+  <!-- preload logo untuk jsPDF -->
+  <img id="bestariLogo" src="aset/logo1.png" style="display:none;" />
+
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const WebDevAssessment = () => {
+      const [currentQuestion, setCurrentQuestion] = useState(0);
+      const [answers, setAnswers] = useState({});
+      const [showResults, setShowResults] = useState(false);
+      const [userName, setUserName] = useState('');
+      const [showNameInput, setShowNameInput] = useState(true);
+
+      const questions = [
+        {id: 1, question: "Saya selalu memprioritaskan tabungan dan pembayaran utang sebelum saya mengalokasikan uang untuk keinginan pribadi (konsumtif).", category: "Disiplin Belanja & Prioritas"},
+        {id: 2, question: "Saya dapat menahan diri untuk tidak melakukan pembelian besar (di atas batas tertentu) tanpa melakukan riset atau diskusi minimal.", category: "Pengendalian Impuls Belanja"},
+        {id: 3, question: "Saya memiliki utang konsumtif (misalnya, kartu kredit atau pinjaman online) yang dapat saya lunasi dalam waktu kurang dari satu tahun.", category: "Manajemen Utang Jangka Pendek"},
+        {id: 4, question: "Saya telah memiliki target yang jelas tentang jumlah dana darurat pribadi yang harus saya kumpulkan.", category: "Perencanaan Keuangan Dasar"},
+        {id: 5, question: "Saya bersedia dan mampu untuk berbagi informasi rinci mengenai seluruh aset dan utang pribadi saya kepada calon pasangan.", category: "Kemauan Transparansi Diri"},
+        {id: 6, question: "Saya dapat hidup nyaman dengan gaya hidup yang lebih sederhana, bahkan jika pendapatan saya atau pasangan saya menurun.", category: "Fleksibilitas Gaya Hidup"},
+        {id: 7, question: "Saya memiliki sumber pendapatan yang stabil atau rencana karier yang realistis untuk menopang diri saya di masa depan.", category: "Kemandirian Pendapatan"},
+        {id: 8, question: "Saya memiliki pemahaman dasar tentang perbedaan antara investasi (menghasilkan uang) dan tabungan (menyimpan uang).", category: "Literasi Finansial"},
+        {id: 9, question: "Saya percaya bahwa masalah keuangan harus diselesaikan secara logis dan bukan dengan mengandalkan perasaan atau emosi.", category: "Sikap Rasional Terhadap Uang"},
+        {id: 10, question: "Saya merasa bertanggung jawab penuh atas segala keputusan finansial buruk yang pernah saya buat di masa lalu.", category: "Akuntabilitas Finansial"}
+      ];
+
+      const ratingLabels = {
+        1: "Sangat Tidak Setuju",
+        2: "Tidak Setuju",
+        3: "Netral",
+        4: "Setuju",
+        5: "Sangat Setuju"
+      };
+
+      const handleAnswer = (rating) => {
+        const qId = questions[currentQuestion].id;
+        setAnswers(prev => {
+          const newAnswers = { ...prev, [qId]: rating };
+          if (currentQuestion < questions.length - 1) {
+            setCurrentQuestion(prevIdx => prevIdx + 1);
+          } else {
+            setShowResults(true);
+          }
+          return newAnswers;
+        });
+      };
+
+      const calculateResults = () => {
+        const totalScore = Object.values(answers).reduce((sum, v) => sum + v, 0);
+        const maxScore = questions.length * 5;
+        const percentage = Math.round((totalScore / maxScore) * 100);
+        return { totalScore, maxScore, percentage };
+      };
+
+      const getReadinessLevel = (percentage) => {
+        if (percentage >= 80) {
+          return {
+            level: "Disiplin Keuangan Tinggi: Anda Adalah Pengelola yang Andal",
+            description: "Anda menunjukkan kedisiplinan finansial yang sangat kuat, transparansi yang tinggi, dan memiliki pandangan jangka panjang yang jelas tentang uang. Anda bersedia mengelola utang dan tabungan secara bertanggung jawab. Ini adalah kekuatan besar yang akan membawa stabilitas dalam rumah tangga Anda.",
+            suggestion: "Jaga kebiasaan ini. Ketika Anda menemukan pasangan, pastikan Anda dapat mengkomunikasikan kebiasaan baik ini tanpa menghakimi. Pertimbangkan untuk mengambil peran utama dalam perencanaan anggaran rumah tangga di masa depan."
+          };
+        } else if (percentage >= 50) {
+          return {
+            level: "Perlu Pengembangan Diri",
+            description: "Anda memiliki dasar-dasar keuangan yang baik (seperti tidak memiliki utang berlebihan), tetapi mungkin kurang konsisten dalam kedisiplinan harian (misalnya, mudah tergoda belanja impulsif) atau kurang proaktif dalam perencanaan jangka panjang (dana darurat/investasi).",
+            suggestion: "Fokus pada aspek perilaku Anda terhadap uang. Buat budget pribadi yang ketat selama tiga bulan. Identifikasi dan perbaiki butir soal yang Anda jawab rendah—apakah itu kurang transparansi atau kesulitan menunda keinginan? Konsistensi adalah kunci Anda menuju stabilitas."
+          };
+        } else {
+          return {
+            level: "Tingkat Kesiapan Rendah",
+            description: "Hasil Anda mengindikasikan adanya kebiasaan finansial yang berisiko, seperti kurangnya transparansi, manajemen utang yang buruk, atau kesulitan membedakan antara kebutuhan dan keinginan. Pola ini dapat menjadi pemicu konflik terbesar dalam pernikahan.",
+            suggestion: "Hentikan atau tunda perencanaan pernikahan hingga Anda memiliki dana darurat yang memadai dan rencana pelunasan utang yang jelas. Dapatkan edukasi finansial dan pertimbangkan untuk berkonsultasi dengan perencana keuangan pribadi. Kestabilan emosi dalam pernikahan sangat terkait dengan kestabilan finansial."
+          };
+        }
+      };
+
+      // -------- DOWNLOAD PDF CANTIK + LOGO BESTARI PNG --------
+const handleDownloadPDF = () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+  const results = calculateResults();
+  const readiness = getReadinessLevel(results.percentage);
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const marginX = 20;
+  let y = 0;
+
+  // ============ MAPPING LIKERT 1–5 ============
+  const likertLabels = {
+    1: "1 - Sangat Tidak Setuju",
+    2: "2 - Tidak Setuju",
+    3: "3 - Netral / Ragu-ragu",
+    4: "4 - Setuju",
+    5: "5 - Sangat Setuju",
+  };
+
+  // ============ DECORATIVE HEADER ============
+  doc.setFillColor(251, 146, 60); // Orange
+  doc.rect(0, 0, pageWidth, 50, "F");
+  
+  doc.setFillColor(236, 72, 153); // Pink
+  doc.circle(pageWidth - 20, 15, 25, "F");
+  
+  doc.setFillColor(251, 207, 232); // Light pink
+  doc.circle(20, 40, 20, "F");
+
+  // Title
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(26);
+  doc.text("BESTARI", marginX, 25);
+  
+  doc.setFontSize(13);
+  doc.setFont("helvetica", "normal");
+  doc.text("Hasil Tes Kestabilan Finansial", marginX, 35);
+
+  // ============ USER INFO CARD ============
+  y = 60;
+  
+  doc.setFillColor(254, 243, 199); // Light yellow
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), 15, 3, 3, "F");
+  doc.setTextColor(146, 64, 14); // Brown
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.text("" + userName, marginX + 5, y + 10);
+
+  y += 20;
+
+  // ============ SCORE HIGHLIGHT BOX ============
+  const centerX = pageWidth / 2;
+  
+  doc.setFillColor(251, 146, 60); // Orange
+  doc.circle(centerX, y + 25, 28, "F");
+  
+  doc.setFillColor(255, 255, 255);
+  doc.circle(centerX, y + 25, 24, "F");
+  
+  doc.setTextColor(251, 146, 60);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(32);
+  doc.text(results.percentage + "%", centerX, y + 28, { align: "center" });
+  
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text("Skor Kesiapan", centerX, y + 36, { align: "center" });
+  
+  y += 60;
+  doc.setFontSize(9);
+  doc.setTextColor(107, 114, 128);
+  doc.text(
+    "Total Skor: " + results.totalScore + " dari " + results.maxScore,
+    centerX,
+    y,
+    { align: "center" }
+  );
+
+  y += 15;
+
+  // ============ LEVEL STATUS CARD ============
+  let levelColor, levelBgColor;
+  if (results.percentage >= 80) {
+    levelColor = [16, 185, 129]; // Green
+    levelBgColor = [236, 253, 245]; // Light green
+  } else if (results.percentage >= 50) {
+    levelColor = [251, 146, 60]; // Orange
+    levelBgColor = [255, 237, 213]; // Light orange
+  } else {
+    levelColor = [239, 68, 68]; // Red
+    levelBgColor = [254, 226, 226]; // Light red
+  }
+
+  doc.setFillColor(levelBgColor[0], levelBgColor[1], levelBgColor[2]);
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), 30, 5, 5, "F");
+  
+  doc.setFillColor(levelColor[0], levelColor[1], levelColor[2]);
+  doc.roundedRect(marginX, y, 5, 30, 2, 2, "F");
+
+  doc.setTextColor(levelColor[0], levelColor[1], levelColor[2]);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  const levelLines = doc.splitTextToSize(
+    readiness.level,
+    pageWidth - (marginX * 2) - 15
+  );
+  doc.text(levelLines, marginX + 10, y + 10);
+
+  y += 40;
+
+  // ============ DESCRIPTION CARD ============
+  doc.setFillColor(243, 244, 246); // Light gray
+  const descHeight = 25;
+  doc.roundedRect(
+    marginX,
+    y,
+    pageWidth - (marginX * 2),
+    descHeight,
+    5,
+    5,
+    "F"
+  );
+
+  doc.setFillColor(59, 130, 246); // Blue
+  doc.circle(marginX + 8, y + 8, 5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+
+  doc.setTextColor(55, 65, 81);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  const descLines = doc.splitTextToSize(
+    readiness.description,
+    pageWidth - (marginX * 2) - 20
+  );
+  doc.text(descLines, marginX + 16, y + 8);
+
+  y += descHeight + 10;
+
+  // ============ RECOMMENDATION CARD ============
+  doc.setFillColor(254, 249, 195); // Light yellow
+  const recHeight = 25;
+  doc.roundedRect(
+    marginX,
+    y,
+    pageWidth - (marginX * 2),
+    recHeight,
+    5,
+    5,
+    "F"
+  );
+
+  doc.setFillColor(234, 179, 8); // Yellow
+  doc.circle(marginX + 8, y + 8, 5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+
+  doc.setTextColor(113, 63, 18); // Dark yellow
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("Rekomendasi:", marginX + 16, y + 8);
+  
+  doc.setFont("helvetica", "normal");
+  const recLines = doc.splitTextToSize(
+    readiness.suggestion,
+    pageWidth - (marginX * 2) - 20
+  );
+  doc.text(recLines, marginX + 16, y + 14);
+
+  y += recHeight + 15;
+
+  // ============ DETAIL ANSWERS SECTION ============
+  if (y > 200) {
+    doc.addPage();
+    y = 20;
+  }
+
+  doc.setFillColor(251, 146, 60);
+  doc.rect(marginX, y, pageWidth - (marginX * 2), 12, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Detail Jawaban", marginX + 5, y + 8);
+
+  y += 18;
+
+  questions.forEach((q, index) => {
+    // ====== DI SINI DIEDIT: pakai skala Likert, bukan lagi text option ======
+    const answerValue = answers[q.id]; // 1–5
+    let answerText;
+
+    if (answerValue >= 1 && answerValue <= 5) {
+      answerText = likertLabels[answerValue];
+    } else {
+      answerText = "Belum dijawab";
+    }
+    // =======================================================================
+
+    if (y > 250) {
+      doc.addPage();
+      y = 20;
+    }
+
+    doc.setFillColor(249, 250, 251);
+    doc.roundedRect(
+      marginX,
+      y,
+      pageWidth - (marginX * 2),
+      28,
+      3,
+      3,
+      "F"
+    );
+
+    doc.setFillColor(251, 146, 60);
+    doc.circle(marginX + 6, y + 6, 4, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text(String(index + 1), marginX + 6, y + 8, { align: "center" });
+
+    // kalau masih pakai kategori, biarkan; kalau tidak ada, bisa dihapus
+    if (q.category) {
+      doc.setFillColor(236, 72, 153);
+      doc.roundedRect(marginX + 14, y + 3, 40, 6, 2, 2, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(7);
+      doc.text(q.category, marginX + 34, y + 7, { align: "center" });
+    }
+
+    doc.setTextColor(31, 41, 55);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    const qLines = doc.splitTextToSize(
+      q.question,
+      pageWidth - (marginX * 2) - 10
+    );
+    doc.text(qLines, marginX + 5, y + 13);
+
+    // Jawaban: tampilkan skala likert
+    doc.setTextColor(107, 114, 128);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text("✓", marginX + 5, y + 22);
+
+    const ansLines = doc.splitTextToSize(
+      answerText,
+      pageWidth - (marginX * 2) - 15
+    );
+    doc.text(ansLines, marginX + 10, y + 22);
+
+    y += 32;
+  });
+
+  // ============ FOOTER ============
+  doc.setFontSize(8);
+  doc.setTextColor(156, 163, 175);
+  doc.setFont("helvetica", "normal");
+  const footerY = pageHeight - 10;
+  doc.text(
+    "Dibuat oleh BESTARI • " + new Date().toLocaleDateString("id-ID"),
+    centerX,
+    footerY,
+    { align: "center" }
+  );
+
+  doc.save(
+    "hasil-tes-kestabilan-finansial-" +
+      userName.replace(/\s+/g, "-").toLowerCase() +
+      ".pdf"
+  );
+};
+
+// --------------------------------------------------------
+
+      // Layar input nama
+      if (showNameInput) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+            <div className="absolute top-40 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 max-w-md w-full relative z-10 border border-white/50 fade-in">
+              <div className="text-center mb-8">
+                <img src="aset/logo1.png" alt="Bestari Logo" className="h-12 w-auto mx-auto"/>
+                <h1 className="text-4xl font-bold text-gray-900 mb-3">Tes Kestabilan Finansial</h1>
+                <p className="text-gray-600 text-lg">Mari kenali kesiapan hubunganmu</p>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="Masukkan nama lengkap Anda"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                  />
+                </div>
+
+                <button
+                  onClick={() => userName.trim() && setShowNameInput(false)}
+                  disabled={!userName.trim()}
+                  className="w-full bg-gradient-to-r from-orange-400 to-pink-500 text-white py-4 rounded-xl font-semibold hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition shadow-lg"
+                >
+                  Mulai Tes →
+                </button>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <p className="text-sm text-gray-600 text-center">⏱️ 5-7 menit • 📝 10 pertanyaan</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Layar hasil
+      if (showResults) {
+        const results = calculateResults();
+        const readiness = getReadinessLevel(results.percentage);
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 py-12 px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 mb-6 border border-white/50">
+                <h2 className="text-4xl font-bold text-gray-900 mb-2">Hasil Tes Kesiapan</h2>
+                <p className="text-gray-600 mb-6">Terima kasih, {userName}!</p>
+
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 shadow-2xl mb-6">
+                    <span className="text-5xl font-bold text-white">{results.percentage}%</span>
+                  </div>
+                  <p className="text-gray-600">
+                    Skor: {results.totalScore} / {results.maxScore}
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-br from-emerald-50 to-green-100 rounded-3xl shadow-xl p-8 mb-6">
+                  <h3 className="text-3xl font-bold text-emerald-700 mb-4">{readiness.level}</h3>
+                  <p className="text-gray-800 mb-3">{readiness.description}</p>
+                  <p className="text-gray-800 font-semibold">Rekomendasi: {readiness.suggestion}</p>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  {questions.map(q => (
+                    <div key={q.id} className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-5 border-l-4 border-orange-400">
+                      <span className="text-xs font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">{q.category}</span>
+                      <p className="text-gray-800 my-2">{q.question}</p>
+                      <p className="text-sm font-semibold">
+                        {(answers[q.id] || "-")}/5 {answers[q.id] && `- ${ratingLabels[answers[q.id]]}`}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleDownloadPDF}
+                  className="w-full bg-gradient-to-r from-red-400 to-pink-500 text-white py-4 rounded-xl font-semibold hover:scale-105 transition shadow-lg flex items-center justify-center gap-2"
+                >
+                  Download PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Layar pertanyaan
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
+          <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+          <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+
+          <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-3xl w-full relative z-10 border border-white/50">
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-3">
+                <div>
+                  <span className="text-sm font-bold text-gray-900">
+                    Pertanyaan {currentQuestion + 1} dari {questions.length}
+                  </span>
+                  <span className="ml-4 text-xs font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+                    {questions[currentQuestion].category}
+                  </span>
+                </div>
+                <span className="text-2xl font-bold text-orange-500">
+                  {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-orange-400 to-pink-500 h-3 rounded-full transition-all duration-500"
+                  style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 leading-relaxed">
+              {questions[currentQuestion].question}
+            </h2>
+
+            <div className="space-y-3 mb-6">
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <button
+                  key={rating}
+                  onClick={() => handleAnswer(rating)}
+                  className="w-full flex items-center justify-between p-5 border-2 border-gray-300 rounded-2xl hover:border-orange-500 hover:bg-orange-50 hover:scale-105 transition group"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-full bg-gray-200 group-hover:bg-gradient-to-br group-hover:from-orange-400 group-hover:to-pink-500 group-hover:text-white flex items-center justify-center font-bold transition">
+                      {rating}
+                    </span>
+                    <span className="text-gray-700 font-semibold">{ratingLabels[rating]}</span>
+                  </span>
+                  <div className="flex gap-1">
+                    {[...Array(rating)].map((_, i) => (
+                      <div key={i} className="w-3 h-3 rounded-full bg-orange-400"></div>
+                    ))}
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {currentQuestion > 0 && (
+              <button
+                onClick={() => setCurrentQuestion(prev => prev - 1)}
+                className="text-orange-600 hover:text-orange-800 font-semibold"
+              >
+                ← Pertanyaan Sebelumnya
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<WebDevAssessment />);
+  </script>
+</body>

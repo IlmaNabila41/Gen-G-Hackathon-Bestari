@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestari - Tes Kesiapan & Rumah Tangga</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'outfit': ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -50px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+        .animate-blob { animation: blob 20s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-outfit bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50">
+
+    <!-- Navigation -->
+<nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="aset/logo.png" alt="Bestari Logo" class="h-12 w-auto">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="index.html" class="text-gray-700 hover:text-orange-500 font-medium transition">Beranda</a></li>
+                    <li><a href="#konseling" class="text-gray-700 hover:text-orange-500 font-medium transition">Konseling</a></li>
+                    <li><a href="#modul" class="text-gray-700 hover:text-orange-500 font-medium transition">Modul</a></li>
+                </ul>
+                
+                <a href="#tes" class="hidden md:inline-flex bg-gradient-to-r from-orange-400 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Mulai Tes
+                </a>
+                
+                <!-- Mobile button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="border-t border-gray-100 pt-3 flex flex-col space-y-2">
+                    <a href="index.html" class="block py-2 text-gray-700 hover:text-orange-500 font-medium">Beranda</a>
+                    <a href="#tes" class="block py-2 text-gray-700 hover:text-orange-500 font-medium">Tes</a>
+                    <a href="#hasil" class="block py-2 text-gray-700 hover:text-orange-500 font-medium">Contoh Hasil</a>
+                    <a href="#konseling" class="block py-2 text-gray-700 hover:text-orange-500 font-medium">Konseling</a>
+                    <a href="#modul" class="block py-2 text-gray-700 hover:text-orange-500 font-medium">Modul</a>
+                    <a href="#tes" class="mt-2 bg-gradient-to-r from-orange-400 to-pink-500 text-white w-full px-6 py-3 rounded-full font-semibold hover:scale-[1.02] transition shadow-lg block text-center">
+                        Mulai Tes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <div class="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+        <div class="absolute top-40 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block bg-white/60 backdrop-blur-lg px-6 py-2 rounded-full text-orange-600 font-semibold mb-4 shadow-lg">
+                        🧩 Tes Kesiapan & Rumah Tangga
+                    </span>
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                        Kenali Kesiapanmu<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Sebelum Melangkah Lebih Jauh</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Rangkaian tes Bestari dirancang untuk membantumu memahami kesiapan pra nikah, kestabilan finansial,
+                        dan dinamika simulasi rumah tangga secara menyeluruh.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#tes" class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-xl text-center">
+                            Lihat Daftar Tes
+                        </a>
+                        <a href="konseling.html" class="bg-white text-gray-800 border-2 border-gray-300 px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition text-center">
+                            Butuh Konseling?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="bg-white/40 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-orange-200 to-pink-200 rounded-2xl p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm font-semibold text-black/90">Tes Pra Nikah</span>
+                                </div>
+                                <p class="text-xs text-black/90">Nilai kecocokan, komunikasi, dan visi pernikahan.</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-emerald-200 to-teal-200 rounded-2xl p-4 flex flex-col justify-between">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm font-semibold text-black/90">Tes Finansial</span>
+                                </div>
+                                <p class="text-xs text-black/90">Pantau stabilitas finansial dan kebiasaan mengatur uang.</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-indigo-200 to-purple-200 rounded-2xl p-4 flex flex-col justify-between col-span-2">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm font-semibold text-black/90">Simulasi Rumah Tangga</span>
+                                    <i class="fas fa-house-heart text-white text-xl opacity-80"></i>
+                                </div>
+                                <p class="text-xs text-black/90">
+                                    Gambaran dinamika sehari-hari dalam rumah tangga: peran, tugas, dan pengambilan keputusan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Daftar Tes -->
+    <section id="tes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Deskripsi Tes</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">
+                    Rangkaian Tes yang Tersedia
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Setiap tes memiliki tujuan dan fokus yang berbeda, namun saling melengkapi untuk membantumu
+                    memahami kesiapan membangun rumah tangga yang sehat.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Tes Pra Nikah -->
+                <div class="bg-gradient-to-b from-orange-50 to-pink-50 rounded-3xl p-7 shadow-sm hover:shadow-xl transition flex flex-col">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-ring text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Tes Persiapan Pra Nikah</h3>
+                    <p class="text-sm text-orange-500 font-semibold mb-4">Fokus: Komunikasi, nilai, dan visi pernikahan</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        Tes ini membantu pasangan mengeksplorasi ekspektasi, nilai hidup, pola komunikasi, dan cara
+                        menyelesaikan konflik sebelum memasuki pernikahan. Cocok untuk pasangan yang sedang dalam
+                        tahap serius atau menuju lamaran.
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-5">
+                        <li>• Ekspektasi peran suami & istri</li>
+                        <li>• Cara menyikapi perbedaan</li>
+                        <li>• Nilai keagamaan & keluarga</li>
+                        <li>• Kesiapan emosional</li>
+                    </ul>
+                    <a href="assessment1.html" class="mt-auto inline-flex items-center justify-center bg-white text-orange-600 font-semibold text-sm px-5 py-3 rounded-full border border-orange-200 hover:bg-orange-50 transition">
+                        Mulai Tes Pra Nikah
+                        <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Tes Finansial -->
+                <div class="bg-gradient-to-b from-emerald-50 to-teal-50 rounded-3xl p-7 shadow-sm hover:shadow-xl transition flex flex-col">
+                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-wallet text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Tes Kestabilan Finansial</h3>
+                    <p class="text-sm text-emerald-500 font-semibold mb-4">Fokus: Pengaturan keuangan & kebiasaan finansial</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        Tes ini memetakan kondisi finansial pribadi atau pasangan: pemasukan, pengeluaran, kebiasaan
+                        menabung, utang, dan cara mengambil keputusan keuangan. Hasilnya membantu merencanakan
+                        keuangan rumah tangga yang lebih sehat.
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-5">
+                        <li>• Pola pengeluaran & prioritas</li>
+                        <li>• Manajemen utang</li>
+                        <li>• Dana darurat & tabungan</li>
+                        <li>• Kecocokan gaya finansial pasangan</li>
+                    </ul>
+                    <a href="assessment2.html" class="mt-auto inline-flex items-center justify-center bg-white text-emerald-600 font-semibold text-sm px-5 py-3 rounded-full border border-emerald-200 hover:bg-emerald-50 transition">
+                        Mulai Tes Finansial
+                        <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Tes Simulasi Rumah Tangga -->
+                <div class="bg-gradient-to-b from-indigo-50 to-purple-50 rounded-3xl p-7 shadow-sm hover:shadow-xl transition flex flex-col">
+                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-house-heart text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Tes Simulasi Rumah Tangga</h3>
+                    <p class="text-sm text-indigo-500 font-semibold mb-4">Fokus: Peran, tugas, dan dinamika sehari-hari</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        Tes ini menyajikan skenario-skenario kehidupan rumah tangga: pembagian tugas domestik,
+                        pengasuhan anak, pengambilan keputusan, hingga cara menghadapi tekanan.
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-5">
+                        <li>• Pembagian tugas rumah tangga</li>
+                        <li>• Pengambilan keputusan bersama</li>
+                        <li>• Cara mengelola konflik harian</li>
+                        <li>• Harapan gaya hidup sehari-hari</li>
+                    </ul>
+                    <a href="assessment3.html" class="mt-auto inline-flex items-center justify-center bg-white text-indigo-600 font-semibold text-sm px-5 py-3 rounded-full border border-indigo-200 hover:bg-indigo-50 transition">
+                        Mulai Tes Simulasi
+                        <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Contoh Hasil Tes / Screenshot -->
+<section class="mt-10">
+    <!-- Gambar besar di tengah -->
+    <div class="flex justify-center">
+        <img 
+            src="aset/hasil-tes.png" 
+            alt="Hasil Tes" 
+            class="w-full max-w-2xl rounded-xl shadow-lg"
+        >
+    </div>
+
+    <!-- Peringatan di bawah gambar -->
+    <div class="flex justify-center mt-6">
+        <div class="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-lg px-4 py-3 rounded-full shadow-lg">
+            <i class="fas fa-star text-orange-500"></i>
+            <span class="text-gray-700 text-sm">
+                Tes tidak menggantikan diagnosa profesional. Hasil tes sebaiknya dibaca bersama
+                konselor untuk pemahaman yang lebih menyeluruh.
+            </span>
+        </div>
+    </div>
+
+</section>
+
+    <!-- Section: Arahkan ke Konseling -->
+    <section id="konseling" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-orange-400 to-pink-500 rounded-3xl p-10 md:p-12 text-white shadow-2xl flex flex-col md:flex-row items-start md:items-center gap-8">
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold mb-3">Butuh Diskusi Lebih Dalam?</h2>
+                    <p class="text-sm md:text-base text-white/90 mb-4">
+                        Hasil tes sering kali memunculkan pertanyaan, kekhawatiran, atau insight baru.
+                        Kamu tidak perlu memproses semuanya sendirian. Konselor Bestari siap menemanimu
+                        membacakan hasil tes, menjelaskan maknanya, dan merancang langkah lanjut yang realistis.
+                    </p>
+                    <ul class="text-sm text-white/90 space-y-1 mb-4">
+                        <li>• Konseling pasangan berdasarkan hasil tes pra nikah</li>
+                        <li>• Konseling perencanaan keuangan rumah tangga</li>
+                        <li>• Konseling dinamika dan peran dalam rumah tangga</li>
+                    </ul>
+                    <p class="text-xs text-white/80">
+                        Kamu bisa memilih konselor sesuai preferensi (perempuan/laki-laki, fokus bidang, atau pengalaman).
+                    </p>
+                </div>
+                <div class="w-full md:w-auto flex flex-col gap-3">
+                    <a href="index.html#jadwal" class="inline-flex items-center justify-center bg-white text-orange-500 px-6 py-3 rounded-full font-semibold text-sm hover:bg-orange-50 transition shadow-md">
+                        Jadwalkan Sesi Konseling
+                        <i class="fas fa-calendar-check ml-2 text-xs"></i>
+                    </a>
+                    <a href="index.html#konselor" class="inline-flex items-center justify-center bg-transparent border border-white/60 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/10 transition">
+                        Lihat Profil Konselor
+                        <i class="fas fa-user-md ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Modul Belajar / Artikel -->
+    <section id="modul" class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Modul & Artikel</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">
+                    Pelajari Lebih Dalam dari Modul & Artikel
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Tes hanyalah langkah awal. Modul belajar dan artikel ini akan membantumu memahami topik-topik
+                    penting dalam persiapan pernikahan dan kehidupan rumah tangga.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Modul 1 -->
+                <article class="bg-white rounded-3xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
+                    <div class="h-36 bg-gradient-to-br from-orange-200 to-pink-200"></div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-semibold text-orange-500 uppercase mb-2">Pra Nikah</span>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            Fondasi Komunikasi Sebelum Menikah
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Modul tentang cara membangun komunikasi sehat, mengungkapkan kebutuhan, dan
+                            mengelola perbedaan sejak sebelum pernikahan dimulai.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-sm font-semibold text-orange-500 hover:text-orange-600">
+                            Baca Modul
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Modul 2 -->
+                <article class="bg-white rounded-3xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
+                    <div class="h-36 bg-gradient-to-br from-emerald-200 to-teal-200"></div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-semibold text-emerald-500 uppercase mb-2">Finansial</span>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            Mengatur Keuangan Rumah Tangga Pemula
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Artikel tentang membuat anggaran bersama, dana darurat, pengelolaan utang,
+                            dan kesepakatan finansial di awal pernikahan.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-sm font-semibold text-emerald-500 hover:text-emerald-600">
+                            Baca Artikel
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Modul 3 -->
+                <article class="bg-white rounded-3xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
+                    <div class="h-36 bg-gradient-to-br from-indigo-200 to-purple-200"></div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-semibold text-indigo-500 uppercase mb-2">Rumah Tangga</span>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            Pembagian Peran & Tugas yang Sehat
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Modul yang membahas pembagian tugas domestik, beban mental, dan cara menjaga
+                            rasa adil di dalam rumah tangga.
+                        </p>
+                        <a href="#" class="mt-auto inline-flex items-center text-sm font-semibold text-indigo-500 hover:text-indigo-600">
+                            Baca Modul
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+ <!-- ========== FOOTER ========== -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+            <!-- Column 1 - Brand -->
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="aset/logo1.png" alt="Bestari Logo" class="h-12 w-auto">
+                    <span class="text-2xl font-bold">Bestari</span>
+                </div>
+                <p class="text-gray-400 leading-relaxed">
+                    Menguatkan perempuan hari ini, membangun keluarga sehat di masa depan.
+                </p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2 - Programs -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Programs</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Marriage Readiness Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Financial Stability Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Household Simulation Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Premarital Learning Module</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3 - Company -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Our Team</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Partners</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4 - Resources -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Success Stories</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Events</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Bottom Footer -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 Bestari. All rights reserved.
+            </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Simple JS -->
+    <script>
+        // Toggle mobile menu
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestari - Tes Simulasi Rumah Tangga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- React + Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'outfit': ['Outfit', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF untuk download PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    @keyframes blob {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(20px, -50px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.9); }
+      75% { transform: translate(50px, 50px) scale(1.05); }
+    }
+    .animate-blob { animation: blob 20s infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+  </style>
+</head>
+<body class="font-outfit">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const WebDevAssessment = () => {
+      const [currentQuestion, setCurrentQuestion] = useState(0);
+      const [answers, setAnswers] = useState({});
+      const [showResults, setShowResults] = useState(false);
+      const [userName, setUserName] = useState('');
+      const [showNameInput, setShowNameInput] = useState(true);
+
+      const questions = [
+        {
+          id: 1, 
+          question: "Mobil Anda rusak parah, membutuhkan biaya perbaikan 30% dari tabungan Anda. Bagaimana Anda merespons?", 
+          category: "Krisis Harta Benda",
+          options: [
+            { text: "Saya panik dan mencari utangan segera tanpa perencanaan matang.", score: 1 },
+            { text: "Saya segera meneliti biaya perbaikan/opsi pinjaman sebelum berdiskusi.", score: 3 },
+            { text: "Saya berusaha tetap tenang dan membuat daftar pro-kontra untuk opsi perbaikan.", score: 5 },
+            { text: "Saya menyalahkan diri sendiri karena tidak merawat mobil dengan lebih baik.", score: 2 },
+          ]
+        },
+        {
+          id: 2, 
+          question: "Setelah bertengkar hebat, pasangan Anda menyendiri. Bagaimana Anda bereaksi?", 
+          category: "Konflik Hebat",
+          options: [
+            { text: "Saya memberikan waktu dan ruang, lalu inisiatif mengajak bicara setelah emosi mereda.", score: 5 },
+            { text: "Saya menunggu hingga pasangan yang memulai inisiatif untuk berbaikan.", score: 3 },
+            { text: "Saya langsung meminta maaf (meskipun merasa benar) untuk menghindari ketegangan berlarut.", score: 2 },
+            { text: "Saya segera mendesak pasangan untuk menyelesaikan masalah saat itu juga.", score: 1 },
+          ]
+        },
+        {
+          id: 3, 
+          question: "Orang tua pasangan (mertua) mengkritik cara Anda memasak/mengurus rumah. Bagaimana Anda bersikap?", 
+          category: "Kritik Mertua",
+          options: [
+            { text: "Saya membela diri secara agresif di depan mertua untuk menunjukkan saya benar.", score: 1 },
+            { text: "Saya pura-pura tidak dengar dan menyimpan kejengkelan itu.", score: 2 },
+            { text: "Saya tersenyum, lalu berdiskusi secara pribadi dengan pasangan tentang cara menangani kritik tersebut.", score: 5 },
+            { text: "Saya menerima kritik itu dan berusaha mengubah kebiasaan saya sesuai keinginan mertua.", score: 3 },
+          ]
+        },
+        {
+          id: 4, 
+          question: "Anak Anda (hipotetis) melakukan kesalahan besar di sekolah. Apa yang Anda yakini?", 
+          category: "Anak Bermasalah",
+          options: [
+            { text: "Saya harus menjadi pihak yang lebih tegas dan memberikan hukuman", score: 3 },
+            { text: "Pasangan saya harus menjadi pihak yang lebih tegas dan memberikan hukuman.", score: 3 },
+            { text: "Kami berdua harus mengambil keputusan bersama setelah mendiskusikan dampaknya.", score: 5 },
+            { text: "Menyelesaikan masalah anak adalah urusan guru dan sekolah.", score: 1 },
+          ]
+        },
+        {
+          id: 5, 
+          question: "Pasangan mendapat tawaran pekerjaan startup berisiko, gaji awal lebih rendah. Apa pertimbangan utama Anda?", 
+          category: "Tawaran Berisiko",
+          options: [
+            { text: "Saya fokus pada potensi kegagalan dan risiko kehilangan pendapatan saat ini.", score: 2 },
+            { text: "Saya fokus pada potensi kesuksesan besar di masa depan tanpa memedulikan risiko.", score: 1 },
+            { text: "Saya mencari tahu berapa lama dana darurat kami bisa bertahan jika gajinya berkurang.", score: 5 },
+            { text: "Saya menyerahkan sepenuhnya keputusan kepada pasangan.", score: 3 },
+          ]
+        },
+        {
+          id: 6, 
+          question: "Pasangan Anda kelelahan kerja dan menunjukkan kemarahan yang tidak beralasan kepada Anda. Reaksi utama Anda adalah...", 
+          category: "Konflik Pasangan",
+          options: [
+            { text: "Saya membalas dengan nada marah yang sama agar dia tahu bagaimana rasanya.", score: 1 },
+            { text: "Saya mencari tahu penyebab kejengkelan itu dengan empati ('Kamu lelah ya?').", score: 5 },
+            { text: "Saya segera meninggalkannya sendirian agar dia tidak melampiaskan amarahnya kepada saya.", score: 2 },
+            { text: "Saya menjadi sangat sedih dan merasa diserang secara pribadi.", score: 3 },
+          ]
+        },
+        {
+          id: 7, 
+          question: "Pasangan mendapat beasiswa S2 di luar negeri 2 tahun. Bagaimana Anda menghadapinya?", 
+          category: "Studi Lanjutan",
+          options: [
+            { text: "Saya menolak ide hidup terpisah dan meminta pasangan menunda beasiswa.", score: 2 },
+            { text: "Saya mendukung, tetapi menuntut analisis terperinci tentang biaya dan rencana check-in (kunjungan).", score: 5 },
+            { text: "Saya mengorbankan karier saya dan pindah bersamanya tanpa diskusi biaya.", score: 3 },
+            { text: "Saya marah dan merasa pasangan tidak memprioritaskan hubungan kami.", score: 1 },
+          ]
+        },
+        {
+          id: 8, 
+          question: "Anda butuh lebih banyak waktu dengan pasangan yang sering sibuk. Bagaimana Anda berkomunikasi?", 
+          category: "Kebutuhan Kedekatan",
+          options: [
+            { text: "Saya menarik diri dan mencoba mencari perhatian emosional dari teman.", score: 2 },
+            { text: "Saya menggunakan bahasa menyalahkan: 'Kamu tidak pernah punya waktu untukku.'", score: 1 },
+            { text: "Saya mengajukan permintaan spesifik: 'Bisakah kita luangkan waktu 30 menit setiap malam hanya berdua?'", score: 5 },
+            { text: "Saya berpura-pura tidak peduli, berharap pasangan akan menyadari.", score: 3 },
+          ]
+        },
+        {
+          id: 9, 
+          question: "Pembagian tugas rumah tidak seimbang, pasangan Anda tidak menunaikan tugasnya. Apa yang Anda lakukan?", 
+          category: "Tugas Rumah",
+          options: [
+            { text: "Saya melakukan tugasnya sendiri tanpa mengeluh, karena lebih cepat selesai.", score: 3 },
+            { text: "Saya segera menyampaikan kejengkelan saya secara terbuka dan menuntut dia menyelesaikan tugasnya.", score: 1 },
+            { text: "Saya mengajukan pertemuan untuk meninjau ulang pembagian tugas dan menegosiasikan yang realistis.", score: 5 },
+            { text: "Saya mengomel (ngedumel) tanpa berkomunikasi langsung.", score: 2 },
+          ]
+        },
+        {
+          id: 10, 
+          question: "Pasangan sakit serius jangka panjang yang memengaruhi mobilitasnya. Prioritas Anda adalah...", 
+          category: "Penyakit Pasangan",
+          options: [
+            { text: "Memastikan keuangan aman untuk biaya pengobatan dan tidak memikirkan hal lain.", score: 3 },
+            { text: "Fokus pada perawatan fisik pasangan dan memastikan dukungan emosional dari diri saya.", score: 5 },
+            { text: "Mengajak keluarga besar pasangan untuk mengambil alih sebagian besar tanggung jawab perawatan.", score: 2 },
+            { text: "Mencari tahu seberapa cepat pasangan saya dapat kembali bekerja.", score: 1 },
+          ]
+        }
+      ];
+
+      const handleAnswer = (score) => {
+        const qId = questions[currentQuestion].id;
+        setAnswers(prev => {
+          const newAnswers = { ...prev, [qId]: score };
+          if (currentQuestion < questions.length - 1) {
+            setCurrentQuestion(prevIdx => prevIdx + 1);
+          } else {
+            setShowResults(true);
+          }
+          return newAnswers;
+        });
+      };
+
+      const calculateResults = () => {
+        const totalScore = Object.values(answers).reduce((sum, v) => sum + v, 0);
+        const maxScore = questions.length * 5;
+        const percentage = Math.round((totalScore / maxScore) * 100);
+        return { totalScore, maxScore, percentage };
+      };
+
+      const getReadinessLevel = (percentage) => {
+        if (percentage >= 80) {
+          return {
+            level: "Siap & Mandiri",
+            description: "Anda cenderung memilih respons yang konstruktif dan solutif saat menghadapi skenario tekanan atau konflik. Ini menunjukkan kemampuan yang baik dalam berpikir logis di bawah tekanan, menyeimbangkan emosi, dan memprioritaskan penyelesaian masalah bersama. Anda adalah aset yang stabil dalam menghadapi krisis rumah tangga.",
+            suggestion: "Terus percayai kemampuan Anda dalam menangani situasi sulit. Pikirkan bagaimana Anda dapat mengajarkan atau memandu pasangan (di masa depan) untuk menggunakan pola respons yang sama konstruktifnya tanpa mendominasi keputusan."
+          };
+        } else if (percentage >= 50) {
+          return {
+            level: "Perlu Pengembangan Diri",
+            description: "Dalam beberapa skenario, Anda cenderung memilih respons yang reaktif (misalnya, menyalahkan atau menghindar) alih-alih respons yang berfokus pada solusi. Pola respons ini adalah kebiasaan otomatis yang jika tidak diubah, dapat meningkatkan intensitas konflik dengan pasangan.",
+            suggestion: "Identifikasi skenario di mana Anda memilih jawaban reaktif. Sebelum bertindak, biasakan berhenti sejenak dan bertanya pada diri sendiri: 'Apakah tindakan ini akan menyelesaikan masalah, atau hanya memuaskan emosi sesaat?' Belajar mengubah reaksi menjadi respons yang terukur."
+          };
+        } else {
+          return {
+            level: "Tingkat Kesiapan Rendah",
+            description: "Hasil Anda menunjukkan kecenderungan memilih respons yang dapat memperburuk situasi dalam skenario konflik dan krisis (misalnya, menolak tanggung jawab, menyalahkan pasangan, atau melanggar batasan). Pola ini sangat rentan menciptakan lingkungan rumah tangga yang penuh stres dan ketidakamanan.",
+            suggestion: "Anda sangat disarankan untuk mencari terapi kognitif-perilaku (CBT) atau jenis terapi lain yang fokus pada pengelolaan amarah dan problem-solving. Kematangan dalam menghadapi krisis adalah keterampilan yang dapat dipelajari. Ubah pola respons reaktif Anda sebelum membawa pola tersebut ke dalam ikatan pernikahan."
+          };
+        }
+      };
+      
+      const handleDownloadPDF = () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+  const results = calculateResults();
+  const readiness = getReadinessLevel(results.percentage);
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const marginX = 20;
+  let y = 0;
+
+  // ============ DECORATIVE HEADER ============
+  // Gradient-like header with multiple rectangles
+  doc.setFillColor(251, 146, 60); // Orange
+  doc.rect(0, 0, pageWidth, 50, "F");
+  
+  doc.setFillColor(236, 72, 153); // Pink
+  doc.circle(pageWidth - 20, 15, 25, "F");
+  
+  doc.setFillColor(251, 207, 232); // Light pink
+  doc.circle(20, 40, 20, "F");
+
+  // Title
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(26);
+  doc.text("BESTARI", marginX, 25);
+  
+  doc.setFontSize(13);
+  doc.setFont("helvetica", "normal");
+  doc.text("Hasil Tes Simulasi Rumah Tangga", marginX, 35);
+
+  // ============ USER INFO CARD ============
+  y = 60;
+  
+  // Name badge
+  doc.setFillColor(254, 243, 199); // Light yellow
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), 15, 3, 3, "F");
+  doc.setTextColor(146, 64, 14); // Brown
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.text("" + userName, marginX + 5, y + 10);
+
+  y += 20;
+
+  // ============ SCORE HIGHLIGHT BOX ============
+  // Big score circle
+  const centerX = pageWidth / 2;
+  
+  // Outer circle
+  doc.setFillColor(251, 146, 60); // Orange
+  doc.circle(centerX, y + 25, 28, "F");
+  
+  // Inner circle
+  doc.setFillColor(255, 255, 255);
+  doc.circle(centerX, y + 25, 24, "F");
+  
+  // Score text
+  doc.setTextColor(251, 146, 60);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(32);
+  doc.text(results.percentage + "%", centerX, y + 28, { align: "center" });
+  
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text("Skor Kesiapan", centerX, y + 36, { align: "center" });
+  
+  // Score details below circle
+  y += 60;
+  doc.setFontSize(9);
+  doc.setTextColor(107, 114, 128);
+  doc.text("Total Skor: " + results.totalScore + " dari " + results.maxScore, centerX, y, { align: "center" });
+
+  y += 15;
+
+  // ============ LEVEL STATUS CARD ============
+  // Determine color based on percentage
+  let levelColor, levelBgColor;
+  if (results.percentage >= 80) {
+    levelColor = [16, 185, 129]; // Green
+    levelBgColor = [236, 253, 245]; // Light green
+  } else if (results.percentage >= 50) {
+    levelColor = [251, 146, 60]; // Orange
+    levelBgColor = [255, 237, 213]; // Light orange
+  } else {
+    levelColor = [239, 68, 68]; // Red
+    levelBgColor = [254, 226, 226]; // Light red
+  }
+
+  // Level box with gradient effect
+  doc.setFillColor(levelBgColor[0], levelBgColor[1], levelBgColor[2]);
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), 30, 5, 5, "F");
+  
+  // Accent bar on left
+  doc.setFillColor(levelColor[0], levelColor[1], levelColor[2]);
+  doc.roundedRect(marginX, y, 5, 30, 2, 2, "F");
+
+  // Level title
+  doc.setTextColor(levelColor[0], levelColor[1], levelColor[2]);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  const levelLines = doc.splitTextToSize(readiness.level, pageWidth - (marginX * 2) - 15);
+  doc.text(levelLines, marginX + 10, y + 10);
+
+  y += 40;
+
+  // ============ DESCRIPTION CARD ============
+  doc.setFillColor(243, 244, 246); // Light gray
+  const descHeight = 25;
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), descHeight, 5, 5, "F");
+
+  // Icon circle
+  doc.setFillColor(59, 130, 246); // Blue
+  doc.circle(marginX + 8, y + 8, 5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+  doc.text("", marginX + 6, y + 10);
+
+  // Description text
+  doc.setTextColor(55, 65, 81);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  const descLines = doc.splitTextToSize(readiness.description, pageWidth - (marginX * 2) - 20);
+  doc.text(descLines, marginX + 16, y + 8);
+
+  y += descHeight + 10;
+
+  // ============ RECOMMENDATION CARD ============
+  doc.setFillColor(254, 249, 195); // Light yellow
+  const recHeight = 25;
+  doc.roundedRect(marginX, y, pageWidth - (marginX * 2), recHeight, 5, 5, "F");
+
+  // Icon circle
+  doc.setFillColor(234, 179, 8); // Yellow
+  doc.circle(marginX + 8, y + 8, 5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+  doc.text("", marginX + 5.5, y + 10);
+
+  // Recommendation text
+  doc.setTextColor(113, 63, 18); // Dark yellow
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("Rekomendasi:", marginX + 16, y + 8);
+  
+  doc.setFont("helvetica", "normal");
+  const recLines = doc.splitTextToSize(readiness.suggestion, pageWidth - (marginX * 2) - 20);
+  doc.text(recLines, marginX + 16, y + 14);
+
+  y += recHeight + 15;
+
+  // ============ DETAIL ANSWERS SECTION ============
+  // Check if we need a new page
+  if (y > 200) {
+    doc.addPage();
+    y = 20;
+  }
+
+  // Section header
+  doc.setFillColor(251, 146, 60);
+  doc.rect(marginX, y, pageWidth - (marginX * 2), 12, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Detail Jawaban", marginX + 5, y + 8);
+
+  y += 18;
+
+  // Answer cards
+  questions.forEach((q, index) => {
+    const answerScore = answers[q.id];
+    const selectedOption = q.options.find(opt => opt.score === answerScore);
+    const answerText = selectedOption ? selectedOption.text : "Belum dijawab";
+
+    // Check if we need a new page
+    if (y > 250) {
+      doc.addPage();
+      y = 20;
+    }
+
+    // Question card background
+    doc.setFillColor(249, 250, 251);
+    doc.roundedRect(marginX, y, pageWidth - (marginX * 2), 28, 3, 3, "F");
+
+    // Question number badge
+    doc.setFillColor(251, 146, 60);
+    doc.circle(marginX + 6, y + 6, 4, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text(String(index + 1), marginX + 6, y + 8, { align: "center" });
+
+    // Category tag
+    doc.setFillColor(236, 72, 153);
+    doc.roundedRect(marginX + 14, y + 3, 40, 6, 2, 2, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(7);
+    doc.text(q.category, marginX + 34, y + 7, { align: "center" });
+
+    // Question text
+    doc.setTextColor(31, 41, 55);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    const qLines = doc.splitTextToSize(q.question, pageWidth - (marginX * 2) - 10);
+    doc.text(qLines, marginX + 5, y + 13);
+
+    // Answer text with icon
+    doc.setTextColor(107, 114, 128);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text("✓", marginX + 5, y + 22);
+    
+    const ansLines = doc.splitTextToSize(answerText, pageWidth - (marginX * 2) - 15);
+    doc.text(ansLines, marginX + 10, y + 22);
+
+    y += 32;
+  });
+
+  // ============ FOOTER ============
+  doc.setFontSize(8);
+  doc.setTextColor(156, 163, 175);
+  doc.setFont("helvetica", "normal");
+  const footerY = pageHeight - 10;
+  doc.text("Dibuat oleh BESTARI • " + new Date().toLocaleDateString('id-ID'), centerX, footerY, { align: "center" });
+
+  // Save the PDF
+  doc.save("hasil-tes-simulasi-rumah-tangga-" + userName.replace(/\s+/g, '-').toLowerCase() + ".pdf");
+};
+
+      // Layar input nama
+      if (showNameInput) {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+            <div className="absolute top-40 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 max-w-md w-full relative z-10 border border-white/50 fade-in">
+              <div className="text-center mb-8">
+                <img src="aset/logo1.png" alt="Bestari Logo" className="h-12 w-auto mx-auto"/>
+                <h1 className="text-4xl font-bold text-gray-900 mb-3">Tes Simulasi Rumah Tangga</h1>
+                <p className="text-gray-600 text-lg">Mari kenali kesiapan hubunganmu</p>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="Masukkan nama lengkap Anda"
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                  />
+                </div>
+
+                <button
+                  onClick={() => userName.trim() && setShowNameInput(false)}
+                  disabled={!userName.trim()}
+                  className="w-full bg-gradient-to-r from-orange-400 to-pink-500 text-white py-4 rounded-xl font-semibold hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition shadow-lg"
+                >
+                  Mulai Tes →
+                </button>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <p className="text-sm text-gray-600 text-center">⏱️ 5-7 menit • 📝 10 pertanyaan</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Layar hasil
+      if (showResults) {
+        const results = calculateResults();
+        const readiness = getReadinessLevel(results.percentage);
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 py-12 px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 mb-6 border border-white/50">
+                <h2 className="text-4xl font-bold text-gray-900 mb-2">Hasil Tes Simulasi Rumah Tangga</h2>
+                <p className="text-gray-600 mb-6">Terima kasih, {userName}!</p>
+
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 shadow-2xl mb-6">
+                    <span className="text-5xl font-bold text-white">{results.percentage}%</span>
+                  </div>
+                  <p className="text-gray-600">
+                    Skor: {results.totalScore} / {results.maxScore}
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-br from-emerald-50 to-green-100 rounded-3xl shadow-xl p-8 mb-6">
+                  <h3 className="text-3xl font-bold text-emerald-700 mb-4">{readiness.level}</h3>
+                  <p className="text-gray-800 mb-3">{readiness.description}</p>
+                  <p className="text-gray-800 font-semibold">Rekomendasi: {readiness.suggestion}</p>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  {questions.map(q => {
+                    const answerScore = answers[q.id];
+                    const selectedOption = q.options.find(opt => opt.score === answerScore);
+                    return (
+                      <div key={q.id} className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-5 border-l-4 border-orange-400">
+                        <span className="text-xs font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">{q.category}</span>
+                        <p className="text-gray-800 my-2 font-semibold">{q.question}</p>
+                        <p className="text-sm text-gray-700">
+                          {selectedOption ? selectedOption.text : "Belum dijawab"}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <button
+                  onClick={handleDownloadPDF}
+                  className="w-full bg-gradient-to-r from-red-400 to-pink-500 text-white py-4 rounded-xl font-semibold hover:scale-105 transition shadow-lg flex items-center justify-center gap-2"
+                >
+                  📥 Download PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Layar pertanyaan
+      const currentQ = questions[currentQuestion];
+      
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
+          <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+          <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+
+          <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-3xl w-full relative z-10 border border-white/50">
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-3">
+                <div>
+                  <span className="text-sm font-bold text-gray-900">
+                    Pertanyaan {currentQuestion + 1} dari {questions.length}
+                  </span>
+                  <span className="ml-4 text-xs font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+                    {currentQ.category}
+                  </span>
+                </div>
+                <span className="text-2xl font-bold text-orange-500">
+                  {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-orange-400 to-pink-500 h-3 rounded-full transition-all duration-500"
+                  style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 leading-relaxed">
+              {currentQ.question}
+            </h2>
+
+            <div className="space-y-3 mb-6">
+              {currentQ.options.map((option, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleAnswer(option.score)}
+                  className="w-full text-left p-5 border-2 border-gray-300 rounded-2xl hover:border-orange-500 hover:bg-orange-50 hover:scale-102 transition group"
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 group-hover:bg-gradient-to-br group-hover:from-orange-400 group-hover:to-pink-500 group-hover:text-white flex items-center justify-center font-bold text-sm transition">
+                      {String.fromCharCode(65 + idx)}
+                    </span>
+                    <span className="text-gray-700 font-medium leading-relaxed">
+                      {option.text}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {currentQuestion > 0 && (
+              <button
+                onClick={() => setCurrentQuestion(prev => prev - 1)}
+                className="text-orange-600 hover:text-orange-800 font-semibold transition"
+              >
+                ← Pertanyaan Sebelumnya
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<WebDevAssessment />);
+  </script>
+</body>

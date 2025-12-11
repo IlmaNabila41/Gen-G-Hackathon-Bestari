@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestari</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+   <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'outfit': ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'peach': '#FFD4C4',
+                        'coral': '#FF8B7B',
+                        'rose': '#FFB4A8',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-outfit bg-gradient-to-br from-rose-50 via-orange-50 to-pink-50">
+    
+     <!-- ========== HEADER/NAVIGATION ========== -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="aset/logo.png" alt="Bestari Logo" class="h-12 w-auto">
+                </div>
+                
+                <!-- Navigation Links -->
+                <ul class="hidden md:flex space-x-8">
+                    <li>
+                        <a href="#beranda" class="text-gray-700 hover:text-orange-500 font-medium transition">
+                            Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="artikel.html" class="text-gray-700 hover:text-orange-500 font-medium transition">
+                            Pelajari Modul
+                        </a>
+                    </li>
+                </ul>
+
+                 <!-- CTA Button -->
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Masuk/Daftar
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+     <section id="home" class="relative pt-32 pb-20 overflow-hidden">
+       <!-- Gradient Orbs Background -->
+        <div class="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+        <div class="absolute top-40 right-1/3 w-96 h-96 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-20 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-4000"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-lg px-4 py-2 rounded-full mb-6 shadow-lg">
+                        <i class="fas fa-star text-orange-500"></i>
+                        <span class="text-gray-700 font-medium">Building a Better Tomorrow</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                        Kenali Diri<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Siapkan Masa Depan</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 mb-8 max-w-xl">
+                        Masa depan yang sehat dan penuh cinta dimulai dari keberanian mengenali diri. Ayo tes kesiapanmu hari ini!
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#programs" class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-xl">
+                            Lakukan Tes
+                        </a>
+                        <a href="konseling.html" class="bg-white text-gray-800 border-2 border-gray-300 px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition">
+                            Konsultasi
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="flex-1 flex justify-center lg:justify-end">
+                    <img src="aset/puzzle.png" alt="Ikon Bestari" class="w-full max-w-md lg:max-w-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 1: ABOUT US ========== -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Who We Are</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Our Mission & Vision
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    BESTARI berkomitmen mendukung perempuan Indonesia membangun keluarga yang sehat dan setara melalui kesiapan emosional, kesadaran diri, serta pengetahuan pra-nikah yang memadai.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-gradient-to-br from-orange-50 to-pink-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Asesmen Kesiapan Personal</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Tes kesiapan nikah, finansial, dan simulasi rumah tangga untuk memahami diri lebih dalam.
+                    </p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Edukasi Pra-Nikah Berbasis Sains</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Materi singkat mengenai relasi sehat, kesehatan reproduksi, dan literasi finansial.
+                    </p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 hover:shadow-xl transition">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Dukungan Aman dan Ramah Perempuan</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Konsultasi dengan konselor atau kader untuk membantu menjawab pertanyaan sensitif.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 2: PROGRAMS & SERVICES ========== -->
+    <section id="programs" class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">What We Offer</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Our Programs
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Fitur komprehensif untuk membantu perempuan di setiap tahap persiapan pra-nikah.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Program 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition hover:-translate-y-2 border-t-4 border-orange-400">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-briefcase text-orange-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tes Kesiapan Pra-Nikah</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                         Temukan kekuatan hubunganmu dalam 5 dimensi: mental, finansial, relasi, kesehatan, visi hidup.
+                    </p>
+                </div>
+                
+                <!-- Program 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition hover:-translate-y-2 border-t-4 border-pink-400">
+                    <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-laptop-code text-pink-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tes Simulasi Rumah Tangga</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Uji responmu terhadap skenario nyata rumah tangga, dan latih kesiapan menghadapi tantangan bersama.
+                    </p>
+                </div>
+                
+                <!-- Program 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition hover:-translate-y-2 border-t-4 border-purple-400">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-hand-holding-heart text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tes Kestabilan Finansial</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                         Kenali kondisi keuangan pribadimu, agar lebih siap membangun rumah tangga.
+                    </p>
+                </div>
+                
+                <!-- Program 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition hover:-translate-y-2 border-t-4 border-blue-400">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-rocket text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Modul Pembelajaran Singkat</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Microlearning menarik yang mudah dicerna.
+                    </p>
+                </div>
+            </div>
+        </div>
+            <!-- View All Articles Button -->
+            <div class="text-center mt-12">
+                <a href="mulai_tes.html" class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Pelajari Lebih Lanjut
+                </a>
+            </div>
+    </section>
+
+    <!-- ========== SECTION 5: RECENT ARTICLES ========== -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Latest Updates</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Artikel & Modul Terbaru
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Dapatkan wawasan, tips, dan cerita terbaru yang dapat membantumu mempersiapkan diri dengan lebih percaya diri.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+    <div class="relative overflow-hidden">
+        <!-- Actual Image -->
+        <img 
+            src="aset/artikel1.jpg" 
+            alt="Regulasi Emosi Sebelum Menikah" 
+            class="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
+        >
+        <div class="absolute top-4 left-4">
+            <span class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-orange-500">
+                Kesehatan Mental
+            </span>
+        </div>
+    </div>
+    <div class="p-6">
+        <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+            <span><i class="far fa-calendar mr-2"></i>7 Des, 2025</span>
+            <span><i class="far fa-clock mr-2"></i>Waktu baca: 5 menit</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition">
+            Regulasi Emosi Sebelum Menikah
+        </h3>
+        <p class="text-gray-600 mb-4 leading-relaxed">
+            Belajar Mengelola Emosi Sebelum Menikah: Panduan untuk Calon Pengantin Perempuan.
+        </p>
+        <a href="#" class="inline-flex items-center text-orange-500 font-semibold hover:text-orange-600 transition">
+            Baca Selengkapnya 
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition"></i>
+        </a>
+    </div>
+</article>
+
+                <!-- Article 2 -->
+                <article class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+                    <div class="relative overflow-hidden">
+                    <!-- Actual Image -->
+        <img 
+            src="aset/artikel2.png" 
+            alt="Kesehatan Reproduksi yang Wajib Diketahui Calon Istri" 
+            class="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
+        >
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-purple-500">
+                                Kesehatan
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                            <span><i class="far fa-calendar mr-2"></i>5 Des, 2025</span>
+                            <span><i class="far fa-clock mr-2"></i>Waktu baca: 7 menit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-500 transition">
+                            Kesehatan Reproduksi yang Wajib Diketahui Calon Istri
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                           Risiko Anemia & Kehamilan Dini: Apa yang Perlu Kamu Ketahui Sebelum Menikah?
+                        </p>
+                        <a href="#" class="inline-flex items-center text-purple-500 font-semibold hover:text-purple-600 transition">
+                            Baca Selengkapnya 
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+                    <div class="relative overflow-hidden">
+                        <!-- Actual Image -->
+        <img 
+            src="aset/artikel3.jpg" 
+            alt="Menyiapkan Keuangan Rumah Tangga Baru" 
+            class="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
+        >
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-blue-500">
+                                Keuangan
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                            <span><i class="far fa-calendar mr-2"></i>3 Des, 2025</span>
+                            <span><i class="far fa-clock mr-2"></i>Waktu baca: 6 menit</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-500 transition">
+                            Menyiapkan Keuangan Rumah Tangga Baru
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Cara Mengatur Keuangan Saat Baru Menikah: 5 Langkah Dasar untuk Pasangan Muda
+                        </p>
+                        <a href="#" class="inline-flex items-center text-blue-500 font-semibold hover:text-blue-600 transition">
+                            Baca Selengkapnya 
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- View All Articles Button -->
+            <div class="text-center mt-12">
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Lihat Lebih Banyak
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 6: FAQ ========== -->
+    <section class="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Got Questions?</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                   Semua yang perlu kamu ketahui tentang BESTARI dan cara memulai perjalananmu bersama kami.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                           Apakah tes di BESTARI gratis?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Ya. Semua tes kesiapan pra-nikah dapat dilakukan secara gratis untuk membantu perempuan mendapatkan pemahaman awal sebelum menikah.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                            Apakah data yang saya isi aman?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Tentu. Data kamu bersifat pribadi, disimpan dengan aman, dan tidak dibagikan kepada pihak lain tanpa izin.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                           Berapa lama waktu yang dibutuhkan untuk tes?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Rata-rata 3–5 menit saja. Tes dibuat singkat dan nyaman agar mudah diakses kapan pun.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 4 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                            Apa yang saya dapatkan setelah tes selesai?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Kamu akan menerima readiness score, insight personal, dan roadmap pembelajaran sesuai kebutuhanmu.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 5 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                            Apakah BESTARI menyediakan konsultasi dengan psikolog?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                       Ya. Kamu dapat mengakses daftar konselor atau praktisi terverifikasi.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 6 -->
+                <details class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 hover:bg-orange-50 transition">
+                        <h3 class="text-lg font-bold text-gray-900 pr-8">
+                            Apakah BESTARI hanya untuk perempuan yang akan segera menikah?
+                        </h3>
+                        <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-plus group-open:rotate-45 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Tidak. BESTARI juga bermanfaat untuk remaja putri, perempuan yang sedang menjalin hubungan, atau siapa pun yang ingin memahami kesiapan diri.
+                    </div>
+                </details>
+            </div>
+
+            <!-- Still Have Questions CTA -->
+            <div class="mt-12 text-center bg-white/60 backdrop-blur-lg rounded-3xl p-8 shadow-lg border border-white/50">
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Masih punya pertanyaan?</h3>
+                <p class="text-gray-600 mb-6">Tim Bestari selalu siap menjawab pertanyaanmu secepatnya.</p>
+                <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition shadow-lg">
+                    Kontak Kami
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 7: CALL TO ACTION ========== -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-orange-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="bg-white/60 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border border-white/50">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Siap memahami dirimu sebelum menikah?
+                </h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Dapatkan panduan, asesmen, dan modul yang membantumu memasuki pernikahan dengan kesiapan penuh.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                    <button class="bg-gradient-to-r from-orange-400 to-pink-500 text-white px-10 py-4 rounded-full font-semibold hover:scale-105 transition shadow-xl text-lg">
+                        Mulai Tes Sekarang
+                    </button>
+                    <button class="bg-white text-gray-800 border-2 border-gray-300 px-10 py-4 rounded-full font-semibold hover:bg-gray-50 transition text-lg">
+                        Konsultasi
+                    </button>
+                </div>
+                
+                <p class="text-gray-500 text-sm">
+                    Untuk Pertanyaan Lebih Lanjut, silakan hubungi email kami <a href="mailto:info@empowerher.com" class="text-orange-500 hover:text-orange-600 font-semibold">info@bestari.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+            <!-- Column 1 - Brand -->
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="aset/logo1.png" alt="Bestari Logo" class="h-12 w-auto">
+                    <span class="text-2xl font-bold">Bestari</span>
+                </div>
+                <p class="text-gray-400 leading-relaxed">
+                    Menguatkan perempuan hari ini, membangun keluarga sehat di masa depan.
+                </p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2 - Programs -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Programs</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Marriage Readiness Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Financial Stability Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Household Simulation Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Premarital Learning Module</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3 - Company -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Our Team</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Partners</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4 - Resources -->
+            <div>
+                <h4 class="text-lg font-bold mb-6">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Success Stories</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Events</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Bottom Footer -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 Bestari. All rights reserved.
+            </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Animations -->
+    <style>
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -50px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+        
+        .animate-blob {
+            animation: blob 20s infinite;
+        }
+        
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+   
+</body>
+</html>
