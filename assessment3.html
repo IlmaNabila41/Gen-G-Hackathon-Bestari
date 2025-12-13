@@ -363,7 +363,6 @@
   y += recHeight + 15;
 
   // ============ DETAIL ANSWERS SECTION ============
-  // Check if we need a new page
   if (y > 200) {
     doc.addPage();
     y = 20;
@@ -385,7 +384,7 @@
     const selectedOption = q.options.find(opt => opt.score === answerScore);
     const answerText = selectedOption ? selectedOption.text : "Belum dijawab";
 
-    // Check if we need a new page
+    // new page
     if (y > 250) {
       doc.addPage();
       y = 20;

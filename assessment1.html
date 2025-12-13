@@ -48,7 +48,7 @@
   <body class="font-outfit">
   <div id="root"></div>
 
-  <!-- preload logo untuk jsPDF -->
+  <!-- preload logo jsPDF -->
   <img id="bestariLogo" src="aset/logo1.png" style="display:none;" />
 
 
@@ -125,7 +125,7 @@
         }
       };
 
-      // -------- DOWNLOAD PDF CANTIK + LOGO BESTARI PNG --------
+      // -------- DOWNLOAD PDF --------
 const handleDownloadPDF = () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "mm", format: "a4" });

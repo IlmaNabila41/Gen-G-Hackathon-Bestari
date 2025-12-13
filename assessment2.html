@@ -125,7 +125,7 @@
         }
       };
 
-      // -------- DOWNLOAD PDF CANTIK + LOGO BESTARI PNG --------
+      // -------- DOWNLOAD PDF --------
 const handleDownloadPDF = () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "mm", format: "a4" });
@@ -350,7 +350,7 @@ const handleDownloadPDF = () => {
     doc.setFontSize(9);
     doc.text(String(index + 1), marginX + 6, y + 8, { align: "center" });
 
-    // kalau masih pakai kategori, biarkan; kalau tidak ada, bisa dihapus
+    // kategori
     if (q.category) {
       doc.setFillColor(236, 72, 153);
       doc.roundedRect(marginX + 14, y + 3, 40, 6, 2, 2, "F");
@@ -368,7 +368,7 @@ const handleDownloadPDF = () => {
     );
     doc.text(qLines, marginX + 5, y + 13);
 
-    // Jawaban: tampilkan skala likert
+    // Jawaban skala likert
     doc.setTextColor(107, 114, 128);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
