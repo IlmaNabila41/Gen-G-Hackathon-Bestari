@@ -15,7 +15,7 @@ Project ini dikembangkan dalam waktu **21 hari** sebagai bagian dari **Hackathon
 - Desain responsif dan mobile-friendly
 
 ## 🛠 Tech Stack
-- **Frontend:** Next.js (React), JavaScript, HTML, CSS, Tailwind CSS
+- **Frontend:** React, JavaScript, HTML, CSS, Tailwind CSS
 - **Deployment:** Netlify
 - **Tools:** GitHub, Claude, ChatGPT
 
